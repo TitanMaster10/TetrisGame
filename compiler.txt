@@ -1,1 +1,6 @@
+// old 
 gcc main.c input.c tetris.c graphics.c utils.c -o tetris
+// new 
+gcc $(sdl2-config --cflags) *.c -o tetris_sdl $(sdl2-config --libs)
+
+//note (exe might not work compiled for  unix maxcos zsh 

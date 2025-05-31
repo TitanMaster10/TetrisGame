@@ -3,11 +3,20 @@
 #ifndef TETRIS_H
 #define TETRIS_H
 
-#include "input.h"
+//#include "input.h"
 //helpers
 //logical functions
 #include <stdbool.h>
+// ─── Stările jocului ─────────────────────────────────────────────
+typedef enum {
+    STARE_MENIU,
+    STARE_JOC,
+    STARE_PAUZA,
+    STARE_JOC_PIERDUT
+} StareJoc;
 
+// Variabila globală cu starea curentă a jocului
+extern StareJoc stare_joc;
 // graphics 
 //#include <SDL2/SDL.h>
 // de linkat libraryul 
@@ -49,7 +58,8 @@ void muta_piesa_stanga(void);
 void muta_piesa_dreapta(void);
 void roteste_piesa(void);
 void coboara_piesa(void);
-
+// permite hold‐swap-ul piesei curente
+void comuta_hold(void);
 const int (*get_sabloane(void))[4][4];
 
 #endif

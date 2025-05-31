@@ -1,3 +1,5 @@
+// srcSdl/main.c
+
 #include <stdio.h>
 #include "input.h"
 #include "tetris.h"
@@ -5,28 +7,29 @@
 #include "utils.h"
 
 int main(void) {
-    init_mod_input();
+    init_graphics();
     init_joc();
+    // meniul inainte de game
     afiseaza_cadru();
 
-    // până când ecranul pierdut + q
-    const unsigned long INTERVAL_CADERE = 1500;
-    unsigned long ultimul_tick = timp_curent_ms();
+    unsigned long last     = timp_curent_ms();
+    unsigned long interval = 500; //ms
 
-    while (!(stare_joc==STARE_JOC_PIERDUT && getchar()=='q')) {
-        gestioneaza_input(); // poate ajunge in pause
-        if (stare_joc == STARE_JOC){
-            unsigned long acum = timp_curent_ms();
-
-            if (stare_joc==STARE_JOC && acum - ultimul_tick >=INTERVAL_CADERE ) {
+    while (!quit_requested) {
+        handle_input();
+        if (stare_joc == STARE_JOC) {
+            unsigned long now = timp_curent_ms();
+            if (now - last >= interval) {
                 actualizeaza_joc();
-                ultimul_tick = acum;
+                last = now;
             }
         }
-        afiseaza_cadru  ();// resource heavy
-        intarzie(100);
+        afiseaza_cadru();
+
+        // 60 fps
+        SDL_Delay(16);
     }
 
-    reseteaza_mod_input();
+    destroy_graphics();
     return 0;
 }

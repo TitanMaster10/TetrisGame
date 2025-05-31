@@ -3,29 +3,15 @@
 
 
 
-//#include <SDL2/SDL.h>
+#include <SDL.h>
 #include <stdbool.h>
-
-// adaugat actiunile imputului posibile
-// left right up down arrow
-//pause resume quit  restart
-
-// " baga enum cai mai simplu de vizualizat"
+#include "tetris.h"
 
 
-typedef enum {
-    STARE_MENIU,
-    STARE_JOC,
-    STARE_PAUZA,
-    STARE_JOC_PIERDUT
-} StareJoc;
+extern int     quit_requested;
+//extern StareJoc stare_joc;
 
-extern StareJoc stare_joc;
-
-void init_mod_input(void);
-void reseteaza_mod_input(void);
-void gestioneaza_input(void);
-void comuta_hold(void);
-
+// Poll SDL events & translate to mutări/rotiri/hold/pauză/restart/exit
+void handle_input(void);
 #endif
 
